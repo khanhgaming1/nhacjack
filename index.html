@@ -19,7 +19,6 @@
       -webkit-user-select: none;
     }
 
-    /* Dòng thông tin Coder */
     .coder-credit {
       position: fixed;
       bottom: 8px;
@@ -33,7 +32,6 @@
       pointer-events: none;
     }
 
-    /* Custom Amber Scrollbar */
     .custom-scrollbar::-webkit-scrollbar {
       width: 4px;
     }
@@ -49,7 +47,6 @@
       background: #d97706;
     }
 
-    /* Animation xoay đĩa CD */
     @keyframes spin-cd {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -61,20 +58,14 @@
       animation-play-state: paused !important;
     }
 
-    /* Hiệu ứng trượt viền vàng mượt hơn */
     .active-indicator {
-      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s ease, opacity 0.2s ease;
+      transition: transform 0.2s ease, height 0.2s ease, opacity 0.2s ease;
       box-sizing: border-box;
     }
 
-    /* Hiệu ứng trôi chữ liên tục mượt tuyệt đối sang phải */
     @keyframes marquee-seamless-right {
-      0% {
-        transform: translateX(-50%);
-      }
-      100% {
-        transform: translateX(0%);
-      }
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0%); }
     }
 
     .animate-marquee-right {
@@ -87,16 +78,13 @@
 </head>
 <body class="min-h-screen bg-gradient-to-br from-amber-200 via-yellow-100 to-amber-300 flex items-center justify-center p-4">
 
-  <!-- Dòng thông tin Coder -->
   <div class="coder-credit">coder:KENR_VN</div>
 
-  <!-- Main Music Player Dashboard -->
   <main class="w-full max-w-xs aspect-[3/4] h-[540px] bg-white/80 backdrop-blur-md rounded-3xl p-4 shadow-2xl shadow-amber-500/20 border border-white/80 relative flex flex-col justify-between overflow-hidden">
     
-    <!-- Header: Chuỗi tiêu đề trôi chữ -->
+    <!-- Header -->
     <div class="w-full overflow-hidden relative pt-1 pb-1 flex items-center">
       <div class="animate-marquee-right flex items-center shrink-0">
-        <!-- Khối 1 -->
         <div class="flex items-center shrink-0">
           <div class="flex items-center gap-2 shrink-0 pr-16">
             <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
@@ -112,7 +100,6 @@
           </div>
         </div>
 
-        <!-- Khối 2 -->
         <div class="flex items-center shrink-0">
           <div class="flex items-center gap-2 shrink-0 pr-16">
             <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
@@ -130,31 +117,26 @@
       </div>
     </div>
 
-    <!-- Ảnh đĩa CD xoay -->
+    <!-- CD -->
     <div id="swipe-zone" class="relative w-36 h-36 mx-auto my-1 shrink-0 flex items-center justify-center cursor-grab active:cursor-grabbing">
-      <div id="cd-disc" class="relative w-36 h-36 rounded-full overflow-hidden shadow-xl shadow-amber-300/60 border-4 border-white/90 animate-cd-spin paused-animation transition-all duration-300">
-        <img 
-          id="cover-art"
-          src="" 
-          alt="Cover Art" 
-          class="w-full h-full object-cover pointer-events-none select-none transition-opacity duration-300"
-        />
+      <div id="cd-disc" class="relative w-36 h-36 rounded-full overflow-hidden shadow-xl shadow-amber-300/60 border-4 border-white/90 animate-cd-spin paused-animation">
+        <img id="cover-art" src="" alt="Cover Art" class="w-full h-full object-cover pointer-events-none select-none" />
         <div class="absolute inset-0 m-auto w-7 h-7 bg-white/90 rounded-full border-2 border-amber-200 shadow-inner flex items-center justify-center pointer-events-none">
           <div class="w-2.5 h-2.5 bg-amber-300/50 rounded-full"></div>
         </div>
       </div>
     </div>
 
-    <!-- Thông tin bài hát -->
+    <!-- Info -->
     <div class="text-center mb-1">
-      <h1 id="song-title" class="text-base font-bold text-amber-700 tracking-tight truncate px-2 transition-opacity duration-200">Đang tải...</h1>
-      <p id="artist-name" class="text-[11px] font-medium text-amber-500 truncate transition-opacity duration-200">...</p>
+      <h1 id="song-title" class="text-base font-bold text-amber-700 tracking-tight truncate px-2">Đang tải...</h1>
+      <p id="artist-name" class="text-[11px] font-medium text-amber-500 truncate">...</p>
     </div>
 
-    <!-- Thanh tiến trình -->
+    <!-- Progress -->
     <div class="space-y-1 mb-2 px-1">
-      <div id="progress-bar" class="w-full bg-amber-100 h-2 rounded-full overflow-hidden cursor-pointer relative group transition-all">
-        <div id="progress-fill" class="bg-gradient-to-r from-amber-400 to-yellow-500 h-full w-0 rounded-full relative transition-[width] duration-100 linear">
+      <div id="progress-bar" class="w-full bg-amber-100 h-2 rounded-full overflow-hidden cursor-pointer relative group">
+        <div id="progress-fill" class="bg-gradient-to-r from-amber-400 to-yellow-500 h-full w-0 rounded-full relative">
           <div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-2 border-amber-500 rounded-full shadow scale-0 group-hover:scale-100 transition-transform"></div>
         </div>
       </div>
@@ -164,41 +146,34 @@
       </div>
     </div>
 
-    <!-- Nút điều khiển -->
+    <!-- Controls -->
     <div class="flex items-center justify-between px-2 mb-3">
-      <!-- Nút Tự động chuyển tiếp -->
       <button id="auto-next-btn" title="Tự động chuyển tiếp (Đang bật)" class="text-amber-700 font-bold active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg bg-amber-100 border border-amber-300 shadow-sm">
         <i data-lucide="skip-forward" class="w-4 h-4"></i>
       </button>
 
-      <!-- Nút Lùi 5s -->
       <button id="rewind-btn" title="Lùi 5s" class="text-amber-500 hover:text-amber-700 active:scale-85 transition-all p-1 flex flex-col items-center">
         <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
         <span class="text-[8px] font-bold -mt-1">5s</span>
       </button>
 
-      <!-- Nút Play/Pause -->
       <button id="play-btn" class="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-400 text-white flex items-center justify-center shadow-lg shadow-amber-300 hover:scale-105 active:scale-90 transition-all shrink-0">
         <i data-lucide="play" class="w-5 h-5 fill-current translate-x-0.5"></i>
       </button>
 
-      <!-- Nút Tiến 5s -->
       <button id="forward-btn" title="Tiến 5s" class="text-amber-500 hover:text-amber-700 active:scale-85 transition-all p-1 flex flex-col items-center">
         <i data-lucide="rotate-cw" class="w-5 h-5"></i>
         <span class="text-[8px] font-bold -mt-1">5s</span>
       </button>
 
-      <!-- Nút Lặp lại 1 bài -->
       <button id="repeat-btn" title="Lặp lại 1 bài (Đang tắt)" class="text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg">
         <i data-lucide="repeat-1" class="w-4 h-4"></i>
       </button>
     </div>
 
-    <!-- Danh sách nhạc -->
+    <!-- Playlist -->
     <div id="playlist-container" class="relative flex-1 overflow-y-auto pr-1 space-y-1.5 custom-scrollbar min-h-0">
       <div id="active-indicator" class="active-indicator absolute top-0 left-0 w-full bg-amber-100/90 border-2 border-amber-400 rounded-xl pointer-events-none shadow-sm z-0 opacity-0"></div>
-      
-      <!-- Track Items -->
       <div id="track-list"></div>
     </div>
 
@@ -210,7 +185,7 @@
       { title: "Hồng Nhan", artist: "Jack", cover: "https://image-cdn.nct.vn/song/2024/12/19/1/f/1/d/1734609516223_300.jpg", src: "music_02.mp3" },
       { title: "Bạc Phận", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742666254013_300.jpg", src: "music_03.mp3" },
       { title: "Em Gì Ơi", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742666043754_300.jpg", src: "music_04.mp3" },
-      { title: "Là 1 Thằng Con Trai", artist: "Jack - J97", cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAENvR32Jhlv_xjd79v-xr9Xd_3eiUVReqB229fmbBOg&s=10", src: "music_05.mp3" },
+      { title: "Là 1 Thằng Con Trai", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2020/03/10/e/a/7/f/1583842188408_300.jpg", src: "music_05.mp3" },
       { title: "Đom Đóm", artist: "Jack - J97", cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6jfAqQKd3ownVQi1buoO0HBhamMbV_bitKPdubFDVyw&s=10", src: "music_06.mp3" },
       { title: "Về Bên Anh", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/03/26/5/b/4/c/1711427484011_300.jpg", src: "music_07.mp3" },
       { title: "Ngôi Sao Cô Đơn", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2022/07/16/7/f/f/2/1657976952802_300.jpg", src: "music_08.mp3" },
@@ -219,10 +194,7 @@
       { title: "Thiên Lý Ơi", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/09/10/d/d/6/f/1725959474440_300.jpg", src: "music_11.mp3" }
     ];
 
-    // Khởi tạo trình phát nhạc tối ưu Preload
     const audioPlayer = new Audio();
-    audioPlayer.preload = "auto";
-
     const indicator = document.getElementById('active-indicator');
     const trackListContainer = document.getElementById('track-list');
     const songTitle = document.getElementById('song-title');
@@ -241,7 +213,6 @@
     let currentTrackIndex = 0;
     let trackItems = [];
     let playMode = 'autoNext'; 
-    let isSwitchingTrack = false; // Tránh spam click gây lag
 
     function updateModeUI() {
       if (playMode === 'autoNext') {
@@ -278,7 +249,7 @@
         <div class="track-item relative z-10 flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-xl active:scale-[0.98] transition-all cursor-pointer mb-1.5"
              data-index="${index}">
           <div class="flex items-center gap-2.5 min-w-0 flex-1 pointer-events-none">
-            <img src="${song.cover}" class="w-8 h-8 rounded-lg object-cover shrink-0 shadow-sm" />
+            <img src="${song.cover}" class="w-8 h-8 rounded-lg object-cover shrink-0" />
             <div class="min-w-0 flex-1">
               <p class="text-[11px] font-bold text-amber-700 truncate leading-snug">${song.title}</p>
               <p class="text-[9px] font-medium text-amber-500 truncate">${song.artist}</p>
@@ -293,7 +264,6 @@
 
       trackItems.forEach((item, index) => {
         item.addEventListener('click', () => {
-          if (currentTrackIndex === index && !audioPlayer.paused) return;
           setActiveTrack(index, true);
         });
       });
@@ -310,24 +280,16 @@
       lucide.createIcons();
     }
 
-    // Hàm chuyển bài mượt mà nhất (Bất đồng bộ Async/Await + Tối ưu Audio Reset)
-    async function setActiveTrack(index, shouldPlay = true) {
-      if (index < 0 || index >= songs.length || isSwitchingTrack) return;
-      isSwitchingTrack = true;
-
+    // Đổi bài tức thì, phản hồi ngay không tạo trễ
+    function setActiveTrack(index, shouldPlay = true) {
+      if (index < 0 || index >= songs.length) return;
+      
       currentTrackIndex = index;
-      const song = songs[index];
       const element = trackItems[index];
 
-      // 1. Cập nhật viền trượt Indicator & Icon Âm thanh
-      if (element) {
-        indicator.style.transform = `translateY(${element.offsetTop}px)`;
-        indicator.style.height = `${element.offsetHeight}px`;
-        indicator.style.opacity = '1';
-
-        // Tự động cuộn playlist đến bài đang phát nếu nằm ngoài khung nhìn
-        element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
+      indicator.style.transform = `translateY(${element.offsetTop}px)`;
+      indicator.style.height = `${element.offsetHeight}px`;
+      indicator.style.opacity = '1';
 
       trackItems.forEach((item, idx) => {
         const icon = item.querySelector('.volume-icon');
@@ -338,32 +300,16 @@
         }
       });
 
-      // 2. Cập nhật thông tin text & ảnh cover
-      songTitle.textContent = song.title;
-      artistName.textContent = song.artist;
-      coverArt.src = song.cover;
+      songTitle.textContent = songs[index].title;
+      artistName.textContent = songs[index].artist;
+      coverArt.src = songs[index].cover;
 
-      // 3. Reset thanh tiến trình
-      progressFill.style.width = '0%';
-      currentTimeEl.textContent = "0:00";
-      durationTimeEl.textContent = "0:00";
+      audioPlayer.src = songs[index].src;
 
-      // 4. Reset & Tải bài hát mượt mà
-      try {
-        audioPlayer.pause();
-        audioPlayer.currentTime = 0;
-        audioPlayer.src = song.src;
-        audioPlayer.load(); // Khởi tạo tải trước tệp âm thanh
-
-        if (shouldPlay) {
-          await audioPlayer.play();
-        }
-      } catch (err) {
-        console.log("Cần tương tác từ người dùng để tự động phát:", err);
-      } finally {
-        updatePlayStateUI();
-        isSwitchingTrack = false;
+      if (shouldPlay) {
+        audioPlayer.play().catch(() => {});
       }
+      updatePlayStateUI();
     }
 
     playBtn.addEventListener('click', () => {
@@ -372,11 +318,11 @@
         return;
       }
       if (audioPlayer.paused) {
-        audioPlayer.play().then(updatePlayStateUI);
+        audioPlayer.play();
       } else {
         audioPlayer.pause();
-        updatePlayStateUI();
       }
+      updatePlayStateUI();
     });
 
     document.getElementById('rewind-btn').addEventListener('click', () => {
@@ -400,7 +346,6 @@
       durationTimeEl.textContent = formatTime(audioPlayer.duration);
     });
 
-    // Khi bài hát kết thúc -> Chuyển bài mượt
     audioPlayer.addEventListener('ended', () => {
       if (playMode === 'autoNext') {
         const nextIndex = (currentTrackIndex + 1) % songs.length;
@@ -432,7 +377,7 @@
       updateModeUI();
       setTimeout(() => {
         setActiveTrack(0, false);
-      }, 100);
+      }, 50);
     });
   </script>
 </body>
