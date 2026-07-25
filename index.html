@@ -93,11 +93,10 @@
   <!-- Main Music Player Dashboard -->
   <main class="w-full max-w-xs aspect-[3/4] h-[540px] bg-white/80 backdrop-blur-md rounded-3xl p-4 shadow-2xl shadow-amber-500/20 border border-white/80 relative flex flex-col justify-between overflow-hidden">
     
-    <!-- Header: Chuỗi tiêu đề nối đuôi nhau di chuyển liên tục tràn viền với khoảng cách rộng hơn -->
+    <!-- Header: Chuỗi tiêu đề trôi chữ -->
     <div class="w-full overflow-hidden relative pt-1 pb-1 flex items-center">
       <div class="animate-marquee-right flex items-center shrink-0">
-        
-        <!-- Khối 1 (Đã tăng pr-16 cho khoảng cách thưa và thoáng hơn) -->
+        <!-- Khối 1 -->
         <div class="flex items-center shrink-0">
           <div class="flex items-center gap-2 shrink-0 pr-16">
             <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
@@ -113,7 +112,7 @@
           </div>
         </div>
 
-        <!-- Khối 2 (Nhân bản đồng bộ khoảng cách pr-16) -->
+        <!-- Khối 2 -->
         <div class="flex items-center shrink-0">
           <div class="flex items-center gap-2 shrink-0 pr-16">
             <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
@@ -128,7 +127,6 @@
             <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -137,7 +135,7 @@
       <div id="cd-disc" class="relative w-36 h-36 rounded-full overflow-hidden shadow-xl shadow-amber-300/60 border-4 border-white/90 animate-cd-spin paused-animation transition-transform duration-200">
         <img 
           id="cover-art"
-          src="https://p16-common-sign.tiktokcdn.com/tos-alisg-avt-0068/8b3fd266f3b19d29c26adaef787e07b2~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=0f51d21c&x-expires=1784948400&x-signature=SjOsJ9iRmQjwMrWta9EddaeLB1Q%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=my" 
+          src="" 
           alt="Cover Art" 
           class="w-full h-full object-cover pointer-events-none select-none"
         />
@@ -207,20 +205,20 @@
   </main>
 
   <script>
-    // Tìm đến đoạn khai báo mảng songs trong thẻ <script>
-const songs = [
-  { title: "Sóng Gió", artist: "Jack x K-ICM", cover: "https://...", src: "music_01.mp3" },
-  { title: "Hồng Nhan", artist: "Jack", cover: "https://...", src: "music_02.mp3" },
-  { title: "Bạc Phận", artist: "Jack x K-ICM", cover: "https://...", src: "music_03.mp3" },
-  { title: "Em Gì Ơi", artist: "Jack x K-ICM", cover: "https://...", src: "music_04.mp3" },
-  { title: "Là 1 Thằng Con Trai", artist: "Jack - J97", cover: "https://...", src: "music_05.mp3" },
-  { title: "Đom Đóm", artist: "Jack - J97", cover: "https://...", src: "music_06.mp3" },
-  { title: "Về Bên Anh", artist: "Jack - J97", cover: "https://...", src: "music_07.mp3" },
-  { title: "Ngôi Sao Cô Đơn", artist: "Jack - J97", cover: "https://...", src: "music_08.mp3" },
-  { title: "Xóa Tên Anh Đi", artist: "Jack - J97", cover: "https://...", src: "music_09.mp3" },
-  { title: "Việt Nam Tôi", artist: "Jack x K-ICM", cover: "https://...", src: "music_10.mp3" },
-  { title: "Thiên Lý Ơi", artist: "Jack - J97", cover: "https://...", src: "music_11.mp3" }
-];
+    // Danh sách bài hát (Đường dẫn nhạc trực tiếp music_01.mp3 -> music_11.mp3)
+    const songs = [
+      { title: "Sóng Gió", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742667027042_300.jpg", src: "music_01.mp3" },
+      { title: "Hồng Nhan", artist: "Jack", cover: "https://image-cdn.nct.vn/song/2024/12/19/1/f/1/d/1734609516223_300.jpg", src: "music_02.mp3" },
+      { title: "Bạc Phận", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742666254013_300.jpg", src: "music_03.mp3" },
+      { title: "Em Gì Ơi", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742666043754_300.jpg", src: "music_04.mp3" },
+      { title: "Là 1 Thằng Con Trai", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2020/03/10/e/a/7/f/1583842188408_300.jpg", src: "music_05.mp3" },
+      { title: "Đom Đóm", artist: "Jack - J97", cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6jfAqQKd3ownVQi1buoO0HBhamMbV_bitKPdubFDVyw&s=10", src: "music_06.mp3" },
+      { title: "Về Bên Anh", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/03/26/5/b/4/c/1711427484011_300.jpg", src: "music_07.mp3" },
+      { title: "Ngôi Sao Cô Đơn", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2022/07/16/7/f/f/2/1657976952802_300.jpg", src: "music_08.mp3" },
+      { title: "Xóa Tên Anh Đi", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2023/08/09/6/d/c/8/1691559892620_300.jpg", src: "music_09.mp3" },
+      { title: "Việt Nam Tôi", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2019/11/30/d/b/7/8/1575102666606_300.jpg", src: "music_10.mp3" },
+      { title: "Thiên Lý Ơi", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/09/10/d/d/6/f/1725959474440_300.jpg", src: "music_11.mp3" }
+    ];
 
     const audioPlayer = new Audio();
     const indicator = document.getElementById('active-indicator');
@@ -278,10 +276,7 @@ const songs = [
     function renderPlaylist() {
       trackListContainer.innerHTML = songs.map((song, index) => `
         <div class="track-item relative z-10 flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-xl active:scale-[0.98] transition-all cursor-pointer mb-1.5"
-             data-index="${index}"
-             data-title="${song.title}" 
-             data-artist="${song.artist}" 
-             data-cover="${song.cover}">
+             data-index="${index}">
           <div class="flex items-center gap-2.5 min-w-0 flex-1 pointer-events-none">
             <img src="${song.cover}" class="w-8 h-8 rounded-lg object-cover shrink-0" />
             <div class="min-w-0 flex-1">
@@ -301,11 +296,6 @@ const songs = [
           setActiveTrack(index, true);
         });
       });
-    }
-
-    function getAudioFileName(index) {
-      const number = String(index + 1).padStart(2, '0');
-      return `file music/music_${number}.mp3`;
     }
 
     function updatePlayStateUI() {
@@ -345,7 +335,8 @@ const songs = [
       artistName.textContent = songs[index].artist;
       coverArt.src = songs[index].cover;
 
-      audioPlayer.src = getAudioFileName(index);
+      // SỬA LỖI: Lấy trực tiếp thuộc tính src trong mảng songs
+      audioPlayer.src = songs[index].src;
 
       if (shouldPlay) {
         audioPlayer.play().then(() => {
@@ -354,6 +345,8 @@ const songs = [
           console.log("Cần tương tác người dùng để phát nhạc:", err);
           updatePlayStateUI();
         });
+      } else {
+        updatePlayStateUI();
       }
     }
 
