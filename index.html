@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nkhanhdznhattgioi</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Dòng thông tin Coder */
+    .coder-credit {
+      position: fixed;
+      bottom: 8px;
+      right: 8px;
+      color: #000000;
+      font-family: monospace, sans-serif;
+      font-size: 13px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    /* Custom Amber Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(251, 191, 36, 0.2);
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #f59e0b;
+      border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #d97706;
+    }
+
+    /* Animation xoay đĩa CD */
+    @keyframes spin-cd {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .animate-cd-spin {
+      animation: spin-cd 10s linear infinite;
+    }
+    .paused-animation {
+      animation-play-state: paused !important;
+    }
+
+    /* Hiệu ứng trượt viền vàng */
+    .active-indicator {
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), height 0.25s ease, opacity 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    /* Hiệu ứng trôi chữ liên tục mượt tuyệt đối sang phải */
+    @keyframes marquee-seamless-right {
+      0% {
+        transform: translateX(-50%);
+      }
+      100% {
+        transform: translateX(0%);
+      }
+    }
+
+    .animate-marquee-right {
+      display: flex;
+      width: max-content;
+      animation: marquee-seamless-right 16s linear infinite;
+      will-change: transform;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-amber-200 via-yellow-100 to-amber-300 flex items-center justify-center p-4">
+
+  <!-- Dòng thông tin Coder -->
+  <div class="coder-credit">coder:KENR_VN</div>
+
+  <!-- Main Music Player Dashboard -->
+  <main class="w-full max-w-xs aspect-[3/4] h-[540px] bg-white/80 backdrop-blur-md rounded-3xl p-4 shadow-2xl shadow-amber-500/20 border border-white/80 relative flex flex-col justify-between overflow-hidden">
+    
+    <!-- Header: Chuỗi tiêu đề nối đuôi nhau di chuyển liên tục tràn viền với khoảng cách rộng hơn -->
+    <div class="w-full overflow-hidden relative pt-1 pb-1 flex items-center">
+      <div class="animate-marquee-right flex items-center shrink-0">
+        
+        <!-- Khối 1 (Đã tăng pr-16 cho khoảng cách thưa và thoáng hơn) -->
+        <div class="flex items-center shrink-0">
+          <div class="flex items-center gap-2 shrink-0 pr-16">
+            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 pr-16">
+            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 pr-16">
+            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+          </div>
+        </div>
+
+        <!-- Khối 2 (Nhân bản đồng bộ khoảng cách pr-16) -->
+        <div class="flex items-center shrink-0">
+          <div class="flex items-center gap-2 shrink-0 pr-16">
+            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 pr-16">
+            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 pr-16">
+            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Ảnh đĩa CD xoay -->
+    <div id="swipe-zone" class="relative w-36 h-36 mx-auto my-1 shrink-0 flex items-center justify-center cursor-grab active:cursor-grabbing">
+      <div id="cd-disc" class="relative w-36 h-36 rounded-full overflow-hidden shadow-xl shadow-amber-300/60 border-4 border-white/90 animate-cd-spin paused-animation transition-transform duration-200">
+        <img 
+          id="cover-art"
+          src="https://p16-common-sign.tiktokcdn.com/tos-alisg-avt-0068/8b3fd266f3b19d29c26adaef787e07b2~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=0f51d21c&x-expires=1784948400&x-signature=SjOsJ9iRmQjwMrWta9EddaeLB1Q%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=my" 
+          alt="Cover Art" 
+          class="w-full h-full object-cover pointer-events-none select-none"
+        />
+        <div class="absolute inset-0 m-auto w-7 h-7 bg-white/90 rounded-full border-2 border-amber-200 shadow-inner flex items-center justify-center pointer-events-none">
+          <div class="w-2.5 h-2.5 bg-amber-300/50 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thông tin bài hát -->
+    <div class="text-center mb-1">
+      <h1 id="song-title" class="text-base font-bold text-amber-700 tracking-tight truncate px-2">Đang tải...</h1>
+      <p id="artist-name" class="text-[11px] font-medium text-amber-500 truncate">...</p>
+    </div>
+
+    <!-- Thanh tiến trình -->
+    <div class="space-y-1 mb-2 px-1">
+      <div id="progress-bar" class="w-full bg-amber-100 h-2 rounded-full overflow-hidden cursor-pointer relative group transition-all">
+        <div id="progress-fill" class="bg-gradient-to-r from-amber-400 to-yellow-500 h-full w-0 rounded-full relative">
+          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-2 border-amber-500 rounded-full shadow scale-0 group-hover:scale-100 transition-transform"></div>
+        </div>
+      </div>
+      <div class="flex justify-between text-[10px] font-semibold text-amber-500">
+        <span id="current-time">0:00</span>
+        <span id="duration-time">0:00</span>
+      </div>
+    </div>
+
+    <!-- Nút điều khiển -->
+    <div class="flex items-center justify-between px-2 mb-3">
+      <!-- Nút Tự động chuyển tiếp -->
+      <button id="auto-next-btn" title="Tự động chuyển tiếp (Đang bật)" class="text-amber-700 font-bold active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg bg-amber-100 border border-amber-300 shadow-sm">
+        <i data-lucide="skip-forward" class="w-4 h-4"></i>
+      </button>
+
+      <!-- Nút Lùi 5s -->
+      <button id="rewind-btn" title="Lùi 5s" class="text-amber-500 hover:text-amber-700 active:scale-85 transition-all p-1 flex flex-col items-center">
+        <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+        <span class="text-[8px] font-bold -mt-1">5s</span>
+      </button>
+
+      <!-- Nút Play/Pause -->
+      <button id="play-btn" class="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-400 text-white flex items-center justify-center shadow-lg shadow-amber-300 hover:scale-105 active:scale-90 transition-all shrink-0">
+        <i data-lucide="play" class="w-5 h-5 fill-current translate-x-0.5"></i>
+      </button>
+
+      <!-- Nút Tiến 5s -->
+      <button id="forward-btn" title="Tiến 5s" class="text-amber-500 hover:text-amber-700 active:scale-85 transition-all p-1 flex flex-col items-center">
+        <i data-lucide="rotate-cw" class="w-5 h-5"></i>
+        <span class="text-[8px] font-bold -mt-1">5s</span>
+      </button>
+
+      <!-- Nút Lặp lại 1 bài -->
+      <button id="repeat-btn" title="Lặp lại 1 bài (Đang tắt)" class="text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg">
+        <i data-lucide="repeat-1" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Danh sách nhạc -->
+    <div id="playlist-container" class="relative flex-1 overflow-y-auto pr-1 space-y-1.5 custom-scrollbar min-h-0">
+      <div id="active-indicator" class="active-indicator absolute top-0 left-0 w-full bg-amber-100/90 border-2 border-amber-400 rounded-xl pointer-events-none shadow-sm z-0 opacity-0"></div>
+      
+      <!-- Track Items -->
+      <div id="track-list"></div>
+    </div>
+
+  </main>
+
+  <script>
+    const songs = [
+      { title: "Sóng Gió", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742667027042_300.jpg" },
+      { title: "Hồng Nhan", artist: "Jack", cover: "https://image-cdn.nct.vn/song/2024/12/19/1/f/1/d/1734609516223_300.jpg" },
+      { title: "Bạc Phận", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742666254013_300.jpg" },
+      { title: "Em Gì Ơi", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742666043754_300.jpg" },
+      { title: "Là 1 Thằng Con Trai", artist: "Jack - J97", cover: "data:image/jpeg;base64,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" },
+      { title: "Đom Đóm", artist: "Jack - J97", cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6jfAqQKd3ownVQi1buoO0HBhamMbV_bitKPdubFDVyw&s=10" },
+      { title: "Về Bên Anh", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/03/26/5/b/4/c/1711427484011_300.jpg" },
+      { title: "Ngôi Sao Cô Đơn", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2022/07/16/7/f/f/2/1657976952802_300.jpg" },
+      { title: "Xóa Tên Anh Đi", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2023/08/09/6/d/c/8/1691559892620_300.jpg" },
+      { title: "Việt Nam Tôi", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2019/11/30/d/b/7/8/1575102666606_300.jpg" },
+      { title: "Thiên Lý Ơi", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/09/10/d/d/6/f/1725959474440_300.jpg" },
+    ];
+
+    const audioPlayer = new Audio();
+    const indicator = document.getElementById('active-indicator');
+    const trackListContainer = document.getElementById('track-list');
+    const songTitle = document.getElementById('song-title');
+    const artistName = document.getElementById('artist-name');
+    const coverArt = document.getElementById('cover-art');
+    const cdDisc = document.getElementById('cd-disc');
+    const playBtn = document.getElementById('play-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const progressFill = document.getElementById('progress-fill');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationTimeEl = document.getElementById('duration-time');
+    
+    const autoNextBtn = document.getElementById('auto-next-btn');
+    const repeatBtn = document.getElementById('repeat-btn');
+
+    let currentTrackIndex = 0;
+    let trackItems = [];
+    let playMode = 'autoNext'; 
+
+    function updateModeUI() {
+      if (playMode === 'autoNext') {
+        autoNextBtn.className = "text-amber-700 font-bold active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg bg-amber-100 border border-amber-300 shadow-sm";
+        autoNextBtn.title = "Tự động chuyển tiếp (Đang bật)";
+
+        repeatBtn.className = "text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
+        repeatBtn.title = "Lặp lại 1 bài (Đang tắt)";
+      } else if (playMode === 'repeatOne') {
+        autoNextBtn.className = "text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
+        autoNextBtn.title = "Tự động chuyển tiếp (Đang tắt)";
+
+        repeatBtn.className = "text-amber-700 font-bold active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg bg-amber-100 border border-amber-300 shadow-sm";
+        repeatBtn.title = "Lặp lại 1 bài (Đang bật)";
+      } else {
+        autoNextBtn.className = "text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
+        autoNextBtn.title = "Tự động chuyển tiếp (Đang tắt)";
+
+        repeatBtn.className = "text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
+        repeatBtn.title = "Lặp lại 1 bài (Đang tắt)";
+      }
+      lucide.createIcons();
+    }
+
+    autoNextBtn.addEventListener('click', () => {
+      playMode = playMode === 'autoNext' ? 'none' : 'autoNext';
+      updateModeUI();
+    });
+
+    repeatBtn.addEventListener('click', () => {
+      playMode = playMode === 'repeatOne' ? 'none' : 'repeatOne';
+      updateModeUI();
+    });
+
+    function renderPlaylist() {
+      trackListContainer.innerHTML = songs.map((song, index) => `
+        <div class="track-item relative z-10 flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-xl active:scale-[0.98] transition-all cursor-pointer mb-1.5"
+             data-index="${index}"
+             data-title="${song.title}" 
+             data-artist="${song.artist}" 
+             data-cover="${song.cover}">
+          <div class="flex items-center gap-2.5 min-w-0 flex-1 pointer-events-none">
+            <img src="${song.cover}" class="w-8 h-8 rounded-lg object-cover shrink-0" />
+            <div class="min-w-0 flex-1">
+              <p class="text-[11px] font-bold text-amber-700 truncate leading-snug">${song.title}</p>
+              <p class="text-[9px] font-medium text-amber-500 truncate">${song.artist}</p>
+            </div>
+          </div>
+          <i data-lucide="volume-2" class="volume-icon w-3.5 h-3.5 text-amber-600 animate-pulse shrink-0 hidden"></i>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+      trackItems = document.querySelectorAll('.track-item');
+
+      trackItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+          setActiveTrack(index, true);
+        });
+      });
+    }
+
+    function getAudioFileName(index) {
+      const number = String(index + 1).padStart(2, '0');
+      return `file music/music_${number}.mp3`;
+    }
+
+    function updatePlayStateUI() {
+      if (audioPlayer.paused) {
+        playBtn.innerHTML = '<i data-lucide="play" class="w-5 h-5 fill-current translate-x-0.5"></i>';
+        cdDisc.classList.add('paused-animation');
+      } else {
+        playBtn.innerHTML = '<i data-lucide="pause" class="w-5 h-5 fill-current"></i>';
+        cdDisc.classList.remove('paused-animation');
+      }
+      lucide.createIcons();
+    }
+
+    function setActiveTrack(index, shouldPlay = true) {
+      if (index < 0 || index >= songs.length) return;
+      
+      currentTrackIndex = index;
+      const element = trackItems[index];
+
+      const targetTop = element.offsetTop;
+      const targetHeight = element.offsetHeight;
+
+      indicator.style.transform = `translateY(${targetTop}px)`;
+      indicator.style.height = `${targetHeight}px`;
+      indicator.style.opacity = '1';
+
+      trackItems.forEach((item, idx) => {
+        const icon = item.querySelector('.volume-icon');
+        if (idx === index) {
+          icon?.classList.remove('hidden');
+        } else {
+          icon?.classList.add('hidden');
+        }
+      });
+
+      songTitle.textContent = songs[index].title;
+      artistName.textContent = songs[index].artist;
+      coverArt.src = songs[index].cover;
+
+      audioPlayer.src = getAudioFileName(index);
+
+      if (shouldPlay) {
+        audioPlayer.play().then(() => {
+          updatePlayStateUI();
+        }).catch(err => {
+          console.log("Cần tương tác người dùng để phát nhạc:", err);
+          updatePlayStateUI();
+        });
+      }
+    }
+
+    playBtn.addEventListener('click', () => {
+      if (!audioPlayer.src) {
+        setActiveTrack(0, true);
+        return;
+      }
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+      } else {
+        audioPlayer.pause();
+      }
+      updatePlayStateUI();
+    });
+
+    document.getElementById('rewind-btn').addEventListener('click', () => {
+      if (audioPlayer.duration) {
+        audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 5);
+      }
+    });
+
+    document.getElementById('forward-btn').addEventListener('click', () => {
+      if (audioPlayer.duration) {
+        audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 5);
+      }
+    });
+
+    audioPlayer.addEventListener('timeupdate', () => {
+      if (!audioPlayer.duration) return;
+      const progressPercent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+      progressFill.style.width = `${progressPercent}%`;
+
+      currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+      durationTimeEl.textContent = formatTime(audioPlayer.duration);
+    });
+
+    audioPlayer.addEventListener('ended', () => {
+      if (playMode === 'autoNext') {
+        const nextIndex = (currentTrackIndex + 1) % songs.length;
+        setActiveTrack(nextIndex, true);
+      } else if (playMode === 'repeatOne') {
+        setActiveTrack(currentTrackIndex, true);
+      } else {
+        updatePlayStateUI();
+      }
+    });
+
+    progressBar.addEventListener('click', (e) => {
+      if (!audioPlayer.duration) return;
+      const rect = progressBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+      audioPlayer.currentTime = percentage * audioPlayer.duration;
+    });
+
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return "0:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    window.addEventListener('load', () => {
+      renderPlaylist();
+      updateModeUI();
+      setTimeout(() => {
+        setActiveTrack(0, false);
+      }, 100);
+    });
+  </script>
+</body>
+</html>
