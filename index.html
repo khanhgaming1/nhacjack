@@ -84,7 +84,7 @@
     }
     #glow-ring.playing { opacity: 0.75; }
 
-    /* HIỆU ỨNG ÁNH SÁNG QUÉT QUA CARD (LIGHT SWEEP) */
+    /* HIỆU ỨNG ÁNH SÁNG QUÉT QUA CARD */
     .light-sweep {
       position: absolute;
       top: 0;
@@ -353,14 +353,17 @@
       { title: "Em Gì Ơi", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742666043754_300.jpg", src: "music_04.mp3" },
       { title: "Là 1 Thằng Con Trai", artist: "Jack - J97", cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAENvR32Jhlv_xjd79v-xr9Xd_3eiUVReqB229fmbBOg&s=10", src: "music_05.mp3" },
       { title: "Đom Đóm", artist: "Jack - J97", cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6jfAqQKd3ownVQi1buoO0HBhamMbV_bitKPdubFDVyw&s=10", src: "music_06.mp3" },
-      /* Đã thêm startTime: 7 để bỏ qua 7 giây đầu */
+      /* Tự động nhảy qua 7 giây đầu */
       { title: "Về Bên Anh", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/03/26/5/b/4/c/1711427484011_300.jpg", src: "music_07.mp3", startTime: 7 },
       { title: "Ngôi Sao Cô Đơn", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2022/07/16/7/f/f/2/1657976952802_300.jpg", src: "music_08.mp3" },
       { title: "Xóa Tên Anh Đi", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2023/08/09/6/d/c/8/1691559892620_300.jpg", src: "music_09.mp3" },
       { title: "Thiên Lý Ơi", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/09/10/d/d/6/f/1725959474440_300.jpg", src: "music_11.mp3" }
     ];
 
+    // Tạo trình phát chính và bật chế độ preload
     const audioPlayer = new Audio();
+    audioPlayer.preload = "auto";
+
     const indicator = document.getElementById('active-indicator');
     const trackListContainer = document.getElementById('track-list');
     const songTitle = document.getElementById('song-title');
@@ -487,11 +490,12 @@
       artistName.textContent = songs[index].artist;
       coverArt.src = songs[index].cover;
 
+      // Nạp bài hát mới và yêu cầu trình duyệt load dữ liệu ngay lập tức
       audioPlayer.src = songs[index].src;
+      audioPlayer.load();
 
-      /* Xử lý nhảy thời gian nếu bài hát có cài đặt startTime */
       const startOffset = songs[index].startTime || 0;
-      
+
       if (shouldPlay) {
         audioPlayer.play().then(() => {
           if (startOffset > 0) {
@@ -578,11 +582,21 @@
       return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
+    // Tải trước (Preload) ngầm toàn bộ bài hát trong playlist
+    function preloadAllTracks() {
+      songs.forEach(song => {
+        const tempAudio = new Audio();
+        tempAudio.preload = "auto";
+        tempAudio.src = song.src;
+      });
+    }
+
     window.addEventListener('load', () => {
       lucide.createIcons();
       renderPlaylist();
       updateModeUI();
       setActiveTrack(0, false);
+      preloadAllTracks(); // Khởi chạy nạp trước dữ liệu toàn bộ playlist
     });
   </script>
 </body>
