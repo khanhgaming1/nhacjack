@@ -13,11 +13,126 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       user-select: none;
       -webkit-user-select: none;
+      background: #05030a;
+      overflow: hidden;
+      position: relative;
     }
+
+    /* ============ NỀN ÁNH SÁNG ĐỘNG ============ */
+    #bg-stage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: radial-gradient(ellipse at center, #0c0818 0%, #05030a 70%);
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.55;
+      mix-blend-mode: screen;
+      will-change: transform;
+    }
+
+    .blob-1 {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, #a855f7 0%, transparent 70%);
+      top: -10%; left: -10%;
+      animation: float1 16s ease-in-out infinite;
+    }
+    .blob-2 {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+      bottom: -15%; right: -10%;
+      animation: float2 20s ease-in-out infinite;
+    }
+    .blob-3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+      top: 40%; left: 60%;
+      animation: float3 18s ease-in-out infinite;
+    }
+    .blob-4 {
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, #22d3ee 0%, transparent 70%);
+      top: 60%; left: 5%;
+      animation: float4 22s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(60px, 80px) scale(1.15); }
+      66% { transform: translate(-30px, 40px) scale(0.9); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-70px, -50px) scale(1.1); }
+      66% { transform: translate(40px, -20px) scale(0.95); }
+    }
+    @keyframes float3 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-90px, 60px) scale(1.2); }
+    }
+    @keyframes float4 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(70px, -70px) scale(1.1); }
+    }
+
+    /* Hạt sáng lấp lánh (particles) */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: #ffffff;
+      opacity: 0;
+      animation: twinkle linear infinite;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0; transform: translateY(0) scale(0.5); }
+      10% { opacity: 0.9; }
+      90% { opacity: 0.4; }
+      100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
+    }
+
+    /* Lưới noise nhẹ để đỡ phẳng */
+    #bg-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.5;
+    }
+
+    /* Viền phát sáng theo nhịp nhạc quanh player */
+    #glow-ring {
+      position: absolute;
+      inset: -2px;
+      border-radius: 26px;
+      padding: 2px;
+      background: conic-gradient(from 0deg, #a855f7, #6366f1, #ec4899, #22d3ee, #a855f7);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.35;
+      animation: spin-ring 6s linear infinite;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    @keyframes spin-ring {
+      to { transform: rotate(360deg); }
+    }
+    #glow-ring.playing { opacity: 0.8; }
 
     /* Dòng thông tin Coder */
     .coder-credit {
@@ -61,6 +176,173 @@
       animation-play-state: paused !important;
     }
 
+    /* Ánh sáng lướt qua trên đĩa CD */
+    #cd-sheen {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+    #cd-sheen::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -150%;
+      width: 60%;
+      height: 200%;
+      background: linear-gradient(
+        75deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0) 35%,
+        rgba(255, 255, 255, 0.55) 50%,
+        rgba(255, 255, 255, 0) 65%,
+        transparent 100%
+      );
+      transform: rotate(0deg);
+      animation: sheen-sweep 3.2s ease-in-out infinite;
+    }
+    @keyframes sheen-sweep {
+      0% { left: -150%; }
+      40% { left: 150%; }
+      100% { left: 150%; }
+    }
+
+    /* Xoay tông màu nền theo thời gian cho sống động */
+    #bg-stage {
+      animation: hue-shift 30s linear infinite;
+    }
+    @keyframes hue-shift {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    /* Nốt nhạc bay lượn trong nền */
+    .note {
+      position: absolute;
+      color: rgba(216, 180, 254, 0.55);
+      font-size: 14px;
+      opacity: 0;
+      animation: note-float linear infinite;
+      pointer-events: none;
+      text-shadow: 0 0 8px rgba(168,85,247,0.6);
+    }
+    @keyframes note-float {
+      0% { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.5; }
+      100% { opacity: 0; transform: translate(var(--drift, 30px), -260px) rotate(25deg); }
+    }
+
+    /* Ánh glass lướt qua toàn bộ khung player */
+    #card-sheen {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 1.5rem;
+    }
+    #card-sheen::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -60%;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(
+        100deg,
+        transparent 0%,
+        rgba(255,255,255,0.06) 45%,
+        rgba(255,255,255,0.16) 50%,
+        rgba(255,255,255,0.06) 55%,
+        transparent 100%
+      );
+      animation: card-sweep 7s ease-in-out infinite;
+    }
+    @keyframes card-sweep {
+      0% { left: -60%; }
+      45% { left: 130%; }
+      100% { left: 130%; }
+    }
+
+    /* Player nghiêng nhẹ theo chuột (tilt 3D) */
+    #player-card {
+      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+    }
+
+    /* Equalizer nhấp nhô khi đang phát */
+    .trk-eq {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+    .trk-eq span {
+      width: 2.5px;
+      background: linear-gradient(to top, #a855f7, #ec4899);
+      border-radius: 2px;
+      height: 3px;
+      animation: eq-bounce 0.9s ease-in-out infinite;
+      animation-play-state: paused;
+    }
+    .trk-eq.playing span { animation-play-state: running; }
+    .trk-eq span:nth-child(1) { animation-duration: 0.6s; }
+    .trk-eq span:nth-child(2) { animation-duration: 0.8s; animation-delay: 0.1s; }
+    .trk-eq span:nth-child(3) { animation-duration: 0.5s; animation-delay: 0.2s; }
+    .trk-eq span:nth-child(4) { animation-duration: 0.9s; animation-delay: 0.05s; }
+    @keyframes eq-bounce {
+      0%, 100% { height: 3px; }
+      50% { height: 12px; }
+    }
+
+    /* Ripple khi bấm nút play */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.6);
+      transform: scale(0);
+      animation: ripple-anim 0.6s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes ripple-anim {
+      to { transform: scale(3); opacity: 0; }
+    }
+
+    /* Progress bar phát sáng khi đang chạy */
+    #progress-fill.playing-glow {
+      box-shadow: 0 0 10px rgba(168,85,247,0.9), 0 0 4px rgba(236,72,153,0.7);
+    }
+
+    /* Ảnh bìa lấp lánh viền khi chuyển bài */
+    @keyframes track-pop {
+      0% { transform: scale(0.9); opacity: 0.4; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .track-pop-anim { animation: track-pop 0.35s ease-out; }
+
+    /* Hào quang toả sáng sau đĩa CD, đồng bộ nhạc phát */
+    #cd-glow {
+      position: absolute;
+      inset: -30px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,85,247,0.55) 0%, rgba(99,102,241,0.25) 45%, transparent 75%);
+      filter: blur(18px);
+      opacity: 0.3;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: -1;
+    }
+    #cd-glow.playing {
+      opacity: 0.9;
+      animation: pulse-glow 1.6s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
     /* Hiệu ứng trượt viền tím */
     .active-indicator {
       transition: transform 0.2s ease, height 0.2s ease, opacity 0.2s ease;
@@ -81,14 +363,27 @@
     }
   </style>
 </head>
-<body class="min-h-screen bg-slate-950 flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-4">
+
+  <!-- Nền ánh sáng động -->
+  <div id="bg-stage">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div id="particles"></div>
+    <div id="notes"></div>
+  </div>
 
   <!-- Dòng thông tin Coder -->
   <div class="coder-credit">coder:KENR_VN</div>
 
   <!-- Main Music Player Dashboard (Dark Theme) -->
-  <main class="w-full max-w-xs aspect-[3/4] h-[540px] bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-4 shadow-2xl shadow-purple-950/50 border border-zinc-700/50 relative flex flex-col justify-between overflow-hidden">
-    
+  <main id="player-card" class="relative w-full max-w-xs aspect-[3/4] h-[540px] bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-4 shadow-2xl shadow-purple-950/50 border border-zinc-700/50 flex flex-col justify-between overflow-hidden z-10">
+
+    <div id="card-sheen"></div>
+    <div id="glow-ring"></div>
+
     <!-- Header Marquee -->
     <div class="w-full overflow-hidden relative pt-1 pb-1 flex items-center">
       <div class="animate-marquee-right flex items-center shrink-0">
@@ -126,8 +421,10 @@
 
     <!-- Ảnh đĩa CD xoay -->
     <div id="swipe-zone" class="relative w-36 h-36 mx-auto my-1 shrink-0 flex items-center justify-center cursor-grab active:cursor-grabbing">
+      <div id="cd-glow"></div>
       <div id="cd-disc" class="relative w-36 h-36 rounded-full overflow-hidden shadow-2xl shadow-purple-900/40 border-4 border-zinc-800 animate-cd-spin paused-animation transition-transform duration-200">
         <img id="cover-art" src="" alt="Cover Art" class="w-full h-full object-cover pointer-events-none select-none opacity-90" />
+        <div id="cd-sheen"></div>
         <div class="absolute inset-0 m-auto w-7 h-7 bg-zinc-900 rounded-full border-2 border-zinc-700 shadow-inner flex items-center justify-center pointer-events-none">
           <div class="w-2.5 h-2.5 bg-purple-500/60 rounded-full"></div>
         </div>
@@ -204,25 +501,99 @@
       { title: "Thiên Lý Ơi", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/09/10/d/d/6/f/1725959474440_300.jpg", src: "music_11.mp3" }
     ];
 
+    // ============ Tạo nốt nhạc bay lượn ============
+    function createNotes() {
+      const container = document.getElementById('notes');
+      const glyphs = ['♪', '♫', '♬', '♩'];
+      const count = 10;
+      for (let i = 0; i < count; i++) {
+        const n = document.createElement('div');
+        n.className = 'note';
+        n.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+        n.style.left = `${Math.random() * 100}%`;
+        n.style.top = `${60 + Math.random() * 40}%`;
+        n.style.fontSize = `${Math.random() * 10 + 12}px`;
+        n.style.setProperty('--drift', `${(Math.random() - 0.5) * 120}px`);
+        n.style.animationDuration = `${Math.random() * 6 + 8}s`;
+        n.style.animationDelay = `${Math.random() * 10}s`;
+        container.appendChild(n);
+      }
+    }
+
+    // ============ Nghiêng 3D theo chuột ============
+    function initTilt() {
+      const card = document.getElementById('player-card');
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(900px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) scale(1.01)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg) scale(1)';
+      });
+    }
+
+    // ============ Ripple hiệu ứng khi bấm nút ============
+    function addRipple(e, btn) {
+      const rect = btn.getBoundingClientRect();
+      const circle = document.createElement('span');
+      const size = Math.max(rect.width, rect.height);
+      circle.className = 'ripple';
+      circle.style.width = circle.style.height = `${size}px`;
+      circle.style.left = `${(e.clientX ?? rect.left + rect.width / 2) - rect.left - size / 2}px`;
+      circle.style.top = `${(e.clientY ?? rect.top + rect.height / 2) - rect.top - size / 2}px`;
+      btn.style.position = 'relative';
+      btn.style.overflow = 'hidden';
+      btn.appendChild(circle);
+      setTimeout(() => circle.remove(), 650);
+    }
+
     const audioPlayer = new Audio();
+    const clickSound = new Audio('click.mp3');
+    clickSound.volume = 0.6;
+    function playClick() {
+      clickSound.currentTime = 0;
+      clickSound.play().catch(() => {});
+    }
     const indicator = document.getElementById('active-indicator');
     const trackListContainer = document.getElementById('track-list');
     const songTitle = document.getElementById('song-title');
     const artistName = document.getElementById('artist-name');
     const coverArt = document.getElementById('cover-art');
     const cdDisc = document.getElementById('cd-disc');
+    const cdGlow = document.getElementById('cd-glow');
+    const glowRing = document.getElementById('glow-ring');
     const playBtn = document.getElementById('play-btn');
     const progressBar = document.getElementById('progress-bar');
     const progressFill = document.getElementById('progress-fill');
     const currentTimeEl = document.getElementById('current-time');
     const durationTimeEl = document.getElementById('duration-time');
-    
+
     const autoNextBtn = document.getElementById('auto-next-btn');
     const repeatBtn = document.getElementById('repeat-btn');
 
     let currentTrackIndex = 0;
     let trackItems = [];
-    let playMode = 'autoNext'; 
+    let playMode = 'autoNext';
+
+    // ============ Tạo hạt sáng lấp lánh ngẫu nhiên ============
+    function createParticles() {
+      const container = document.getElementById('particles');
+      const count = 28;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 3 + 1;
+        p.style.width = `${size}px`;
+        p.style.height = `${size}px`;
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.top = `${Math.random() * 100}%`;
+        p.style.animationDuration = `${Math.random() * 8 + 6}s`;
+        p.style.animationDelay = `${Math.random() * 8}s`;
+        container.appendChild(p);
+      }
+    }
 
     function updateModeUI() {
       if (playMode === 'autoNext') {
@@ -245,11 +616,13 @@
     }
 
     autoNextBtn.addEventListener('click', () => {
+      playClick();
       playMode = playMode === 'autoNext' ? 'none' : 'autoNext';
       updateModeUI();
     });
 
     repeatBtn.addEventListener('click', () => {
+      playClick();
       playMode = playMode === 'repeatOne' ? 'none' : 'repeatOne';
       updateModeUI();
     });
@@ -266,6 +639,9 @@
             </div>
           </div>
           <i data-lucide="volume-2" class="volume-icon w-3.5 h-3.5 text-purple-400 animate-pulse shrink-0 hidden"></i>
+          <div class="trk-eq hidden" data-eq>
+            <span></span><span></span><span></span><span></span>
+          </div>
         </div>
       `).join('');
 
@@ -274,25 +650,35 @@
 
       trackItems.forEach((item, index) => {
         item.addEventListener('click', () => {
+          playClick();
           setActiveTrack(index, true);
         });
       });
     }
 
     function updatePlayStateUI() {
+      const activeEq = trackItems[currentTrackIndex]?.querySelector('.trk-eq');
       if (audioPlayer.paused) {
         playBtn.innerHTML = '<i data-lucide="play" class="w-5 h-5 fill-current translate-x-0.5"></i>';
         cdDisc.classList.add('paused-animation');
+        cdGlow.classList.remove('playing');
+        glowRing.classList.remove('playing');
+        activeEq?.classList.remove('playing');
+        progressFill.classList.remove('playing-glow');
       } else {
         playBtn.innerHTML = '<i data-lucide="pause" class="w-5 h-5 fill-current"></i>';
         cdDisc.classList.remove('paused-animation');
+        cdGlow.classList.add('playing');
+        glowRing.classList.add('playing');
+        activeEq?.classList.add('playing');
+        progressFill.classList.add('playing-glow');
       }
       lucide.createIcons();
     }
 
     function setActiveTrack(index, shouldPlay = true) {
       if (index < 0 || index >= songs.length) return;
-      
+
       currentTrackIndex = index;
       const element = trackItems[index];
 
@@ -302,16 +688,24 @@
 
       trackItems.forEach((item, idx) => {
         const icon = item.querySelector('.volume-icon');
+        const eq = item.querySelector('.trk-eq');
         if (idx === index) {
           icon?.classList.remove('hidden');
+          eq?.classList.remove('hidden');
+          if (!audioPlayer.paused) eq?.classList.add('playing');
         } else {
           icon?.classList.add('hidden');
+          eq?.classList.add('hidden');
+          eq?.classList.remove('playing');
         }
       });
 
       songTitle.textContent = songs[index].title;
       artistName.textContent = songs[index].artist;
       coverArt.src = songs[index].cover;
+      coverArt.classList.remove('track-pop-anim');
+      void coverArt.offsetWidth;
+      coverArt.classList.add('track-pop-anim');
 
       audioPlayer.src = songs[index].src;
 
@@ -321,7 +715,9 @@
       updatePlayStateUI();
     }
 
-    playBtn.addEventListener('click', () => {
+    playBtn.addEventListener('click', (e) => {
+      playClick();
+      addRipple(e, playBtn);
       if (!audioPlayer.src) {
         setActiveTrack(0, true);
         return;
@@ -335,12 +731,14 @@
     });
 
     document.getElementById('rewind-btn').addEventListener('click', () => {
+      playClick();
       if (audioPlayer.duration) {
         audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 5);
       }
     });
 
     document.getElementById('forward-btn').addEventListener('click', () => {
+      playClick();
       if (audioPlayer.duration) {
         audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 5);
       }
@@ -382,6 +780,9 @@
     }
 
     window.addEventListener('load', () => {
+      createParticles();
+      createNotes();
+      initTilt();
       renderPlaylist();
       updateModeUI();
       setTimeout(() => {
