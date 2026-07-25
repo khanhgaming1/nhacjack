@@ -19,11 +19,12 @@
       -webkit-user-select: none;
     }
 
+    /* Dòng thông tin Coder */
     .coder-credit {
       position: fixed;
       bottom: 8px;
       right: 8px;
-      color: #000000;
+      color: #a1a1aa;
       font-family: monospace, sans-serif;
       font-size: 13px;
       padding: 2px 6px;
@@ -32,21 +33,23 @@
       pointer-events: none;
     }
 
+    /* Custom Dark Scrollbar */
     .custom-scrollbar::-webkit-scrollbar {
       width: 4px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
-      background: rgba(251, 191, 36, 0.2);
+      background: rgba(39, 39, 42, 0.4);
       border-radius: 10px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #f59e0b;
+      background: #a855f7;
       border-radius: 10px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #d97706;
+      background: #c084fc;
     }
 
+    /* Animation xoay đĩa CD */
     @keyframes spin-cd {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -58,11 +61,13 @@
       animation-play-state: paused !important;
     }
 
+    /* Hiệu ứng trượt viền tím */
     .active-indicator {
       transition: transform 0.2s ease, height 0.2s ease, opacity 0.2s ease;
       box-sizing: border-box;
     }
 
+    /* Chữ chạy vô tận Header */
     @keyframes marquee-seamless-right {
       0% { transform: translateX(-50%); }
       100% { transform: translateX(0%); }
@@ -76,116 +81,121 @@
     }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-amber-200 via-yellow-100 to-amber-300 flex items-center justify-center p-4">
+<body class="min-h-screen bg-slate-950 flex items-center justify-center p-4">
 
+  <!-- Dòng thông tin Coder -->
   <div class="coder-credit">coder:KENR_VN</div>
 
-  <main class="w-full max-w-xs aspect-[3/4] h-[540px] bg-white/80 backdrop-blur-md rounded-3xl p-4 shadow-2xl shadow-amber-500/20 border border-white/80 relative flex flex-col justify-between overflow-hidden">
+  <!-- Main Music Player Dashboard (Dark Theme) -->
+  <main class="w-full max-w-xs aspect-[3/4] h-[540px] bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-4 shadow-2xl shadow-purple-950/50 border border-zinc-700/50 relative flex flex-col justify-between overflow-hidden">
     
-    <!-- Header -->
+    <!-- Header Marquee -->
     <div class="w-full overflow-hidden relative pt-1 pb-1 flex items-center">
       <div class="animate-marquee-right flex items-center shrink-0">
         <div class="flex items-center shrink-0">
           <div class="flex items-center gap-2 shrink-0 pr-16">
-            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+            <i data-lucide="disc-3" class="w-4 h-4 text-purple-400"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-purple-300">JACK - J97 PLAYLIST</span>
           </div>
           <div class="flex items-center gap-2 shrink-0 pr-16">
-            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+            <i data-lucide="disc-3" class="w-4 h-4 text-purple-400"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-purple-300">JACK - J97 PLAYLIST</span>
           </div>
           <div class="flex items-center gap-2 shrink-0 pr-16">
-            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+            <i data-lucide="disc-3" class="w-4 h-4 text-purple-400"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-purple-300">JACK - J97 PLAYLIST</span>
           </div>
         </div>
 
         <div class="flex items-center shrink-0">
           <div class="flex items-center gap-2 shrink-0 pr-16">
-            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+            <i data-lucide="disc-3" class="w-4 h-4 text-purple-400"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-purple-300">JACK - J97 PLAYLIST</span>
           </div>
           <div class="flex items-center gap-2 shrink-0 pr-16">
-            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+            <i data-lucide="disc-3" class="w-4 h-4 text-purple-400"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-purple-300">JACK - J97 PLAYLIST</span>
           </div>
           <div class="flex items-center gap-2 shrink-0 pr-16">
-            <i data-lucide="disc-3" class="w-4 h-4 text-amber-500"></i>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-amber-700">JACK - J97 PLAYLIST</span>
+            <i data-lucide="disc-3" class="w-4 h-4 text-purple-400"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-purple-300">JACK - J97 PLAYLIST</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- CD -->
+    <!-- Ảnh đĩa CD xoay -->
     <div id="swipe-zone" class="relative w-36 h-36 mx-auto my-1 shrink-0 flex items-center justify-center cursor-grab active:cursor-grabbing">
-      <div id="cd-disc" class="relative w-36 h-36 rounded-full overflow-hidden shadow-xl shadow-amber-300/60 border-4 border-white/90 animate-cd-spin paused-animation">
-        <img id="cover-art" src="" alt="Cover Art" class="w-full h-full object-cover pointer-events-none select-none" />
-        <div class="absolute inset-0 m-auto w-7 h-7 bg-white/90 rounded-full border-2 border-amber-200 shadow-inner flex items-center justify-center pointer-events-none">
-          <div class="w-2.5 h-2.5 bg-amber-300/50 rounded-full"></div>
+      <div id="cd-disc" class="relative w-36 h-36 rounded-full overflow-hidden shadow-2xl shadow-purple-900/40 border-4 border-zinc-800 animate-cd-spin paused-animation transition-transform duration-200">
+        <img id="cover-art" src="" alt="Cover Art" class="w-full h-full object-cover pointer-events-none select-none opacity-90" />
+        <div class="absolute inset-0 m-auto w-7 h-7 bg-zinc-900 rounded-full border-2 border-zinc-700 shadow-inner flex items-center justify-center pointer-events-none">
+          <div class="w-2.5 h-2.5 bg-purple-500/60 rounded-full"></div>
         </div>
       </div>
     </div>
 
-    <!-- Info -->
+    <!-- Thông tin bài hát -->
     <div class="text-center mb-1">
-      <h1 id="song-title" class="text-base font-bold text-amber-700 tracking-tight truncate px-2">Đang tải...</h1>
-      <p id="artist-name" class="text-[11px] font-medium text-amber-500 truncate">...</p>
+      <h1 id="song-title" class="text-base font-bold text-zinc-100 tracking-tight truncate px-2">Đang tải...</h1>
+      <p id="artist-name" class="text-[11px] font-medium text-purple-400 truncate">...</p>
     </div>
 
-    <!-- Progress -->
+    <!-- Thanh tiến trình -->
     <div class="space-y-1 mb-2 px-1">
-      <div id="progress-bar" class="w-full bg-amber-100 h-2 rounded-full overflow-hidden cursor-pointer relative group">
-        <div id="progress-fill" class="bg-gradient-to-r from-amber-400 to-yellow-500 h-full w-0 rounded-full relative">
-          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-2 border-amber-500 rounded-full shadow scale-0 group-hover:scale-100 transition-transform"></div>
+      <div id="progress-bar" class="w-full bg-zinc-800 h-2 rounded-full overflow-hidden cursor-pointer relative group transition-all">
+        <div id="progress-fill" class="bg-gradient-to-r from-purple-600 to-indigo-500 h-full w-0 rounded-full relative">
+          <div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white border-2 border-purple-500 rounded-full shadow scale-0 group-hover:scale-100 transition-transform"></div>
         </div>
       </div>
-      <div class="flex justify-between text-[10px] font-semibold text-amber-500">
+      <div class="flex justify-between text-[10px] font-semibold text-zinc-400">
         <span id="current-time">0:00</span>
         <span id="duration-time">0:00</span>
       </div>
     </div>
 
-    <!-- Controls -->
+    <!-- Nút điều khiển -->
     <div class="flex items-center justify-between px-2 mb-3">
-      <button id="auto-next-btn" title="Tự động chuyển tiếp (Đang bật)" class="text-amber-700 font-bold active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg bg-amber-100 border border-amber-300 shadow-sm">
+      <!-- Nút Chuyển tiếp bài tiếp theo -->
+      <button id="auto-next-btn" title="Tự động chuyển tiếp (Đang bật)" class="text-purple-300 font-bold active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg bg-zinc-800 border border-purple-500/30 shadow-sm">
         <i data-lucide="skip-forward" class="w-4 h-4"></i>
       </button>
 
-      <button id="rewind-btn" title="Lùi 5s" class="text-amber-500 hover:text-amber-700 active:scale-85 transition-all p-1 flex flex-col items-center">
+      <button id="rewind-btn" title="Lùi 5s" class="text-zinc-400 hover:text-purple-300 active:scale-85 transition-all p-1 flex flex-col items-center">
         <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
         <span class="text-[8px] font-bold -mt-1">5s</span>
       </button>
 
-      <button id="play-btn" class="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-400 text-white flex items-center justify-center shadow-lg shadow-amber-300 hover:scale-105 active:scale-90 transition-all shrink-0">
+      <button id="play-btn" class="w-11 h-11 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-500 text-white flex items-center justify-center shadow-lg shadow-purple-900/50 hover:scale-105 active:scale-90 transition-all shrink-0">
         <i data-lucide="play" class="w-5 h-5 fill-current translate-x-0.5"></i>
       </button>
 
-      <button id="forward-btn" title="Tiến 5s" class="text-amber-500 hover:text-amber-700 active:scale-85 transition-all p-1 flex flex-col items-center">
+      <button id="forward-btn" title="Tiến 5s" class="text-zinc-400 hover:text-purple-300 active:scale-85 transition-all p-1 flex flex-col items-center">
         <i data-lucide="rotate-cw" class="w-5 h-5"></i>
         <span class="text-[8px] font-bold -mt-1">5s</span>
       </button>
 
-      <button id="repeat-btn" title="Lặp lại 1 bài (Đang tắt)" class="text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg">
+      <!-- Nút Lặp lại 1 bài -->
+      <button id="repeat-btn" title="Lặp lại 1 bài (Đang tắt)" class="text-zinc-500 hover:text-purple-300 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg">
         <i data-lucide="repeat-1" class="w-4 h-4"></i>
       </button>
     </div>
 
-    <!-- Playlist -->
+    <!-- Danh sách nhạc -->
     <div id="playlist-container" class="relative flex-1 overflow-y-auto pr-1 space-y-1.5 custom-scrollbar min-h-0">
-      <div id="active-indicator" class="active-indicator absolute top-0 left-0 w-full bg-amber-100/90 border-2 border-amber-400 rounded-xl pointer-events-none shadow-sm z-0 opacity-0"></div>
+      <div id="active-indicator" class="active-indicator absolute top-0 left-0 w-full bg-purple-950/40 border border-purple-500/50 rounded-xl pointer-events-none shadow-sm z-0 opacity-0"></div>
       <div id="track-list"></div>
     </div>
 
   </main>
 
   <script>
+    // Danh sách 11 bài nhạc Jack - J97
     const songs = [
       { title: "Sóng Gió", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742667027042_300.jpg", src: "music_01.mp3" },
       { title: "Hồng Nhan", artist: "Jack", cover: "https://image-cdn.nct.vn/song/2024/12/19/1/f/1/d/1734609516223_300.jpg", src: "music_02.mp3" },
       { title: "Bạc Phận", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742666254013_300.jpg", src: "music_03.mp3" },
       { title: "Em Gì Ơi", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742666043754_300.jpg", src: "music_04.mp3" },
-      { title: "Là 1 Thằng Con Trai", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2020/03/10/e/a/7/f/1583842188408_300.jpg", src: "music_05.mp3" },
+      { title: "Là 1 Thằng Con Trai", artist: "Jack - J97", cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAENvR32Jhlv_xjd79v-xr9Xd_3eiUVReqB229fmbBOg&s=10", src: "music_05.mp3" },
       { title: "Đom Đóm", artist: "Jack - J97", cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6jfAqQKd3ownVQi1buoO0HBhamMbV_bitKPdubFDVyw&s=10", src: "music_06.mp3" },
       { title: "Về Bên Anh", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/03/26/5/b/4/c/1711427484011_300.jpg", src: "music_07.mp3" },
       { title: "Ngôi Sao Cô Đơn", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2022/07/16/7/f/f/2/1657976952802_300.jpg", src: "music_08.mp3" },
@@ -216,19 +226,19 @@
 
     function updateModeUI() {
       if (playMode === 'autoNext') {
-        autoNextBtn.className = "text-amber-700 font-bold active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg bg-amber-100 border border-amber-300 shadow-sm";
+        autoNextBtn.className = "text-purple-300 font-bold active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg bg-zinc-800 border border-purple-500/30 shadow-sm";
         autoNextBtn.title = "Tự động chuyển tiếp (Đang bật)";
-        repeatBtn.className = "text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
+        repeatBtn.className = "text-zinc-500 hover:text-purple-300 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
         repeatBtn.title = "Lặp lại 1 bài (Đang tắt)";
       } else if (playMode === 'repeatOne') {
-        autoNextBtn.className = "text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
+        autoNextBtn.className = "text-zinc-500 hover:text-purple-300 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
         autoNextBtn.title = "Tự động chuyển tiếp (Đang tắt)";
-        repeatBtn.className = "text-amber-700 font-bold active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg bg-amber-100 border border-amber-300 shadow-sm";
+        repeatBtn.className = "text-purple-300 font-bold active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg bg-zinc-800 border border-purple-500/30 shadow-sm";
         repeatBtn.title = "Lặp lại 1 bài (Đang bật)";
       } else {
-        autoNextBtn.className = "text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
+        autoNextBtn.className = "text-zinc-500 hover:text-purple-300 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
         autoNextBtn.title = "Tự động chuyển tiếp (Đang tắt)";
-        repeatBtn.className = "text-amber-400 hover:text-amber-700 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
+        repeatBtn.className = "text-zinc-500 hover:text-purple-300 active:scale-90 transition-all p-1.5 flex items-center justify-center rounded-lg";
         repeatBtn.title = "Lặp lại 1 bài (Đang tắt)";
       }
       lucide.createIcons();
@@ -246,16 +256,16 @@
 
     function renderPlaylist() {
       trackListContainer.innerHTML = songs.map((song, index) => `
-        <div class="track-item relative z-10 flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-xl active:scale-[0.98] transition-all cursor-pointer mb-1.5"
+        <div class="track-item relative z-10 flex items-center justify-between gap-2.5 px-2.5 py-1.5 rounded-xl active:scale-[0.98] transition-all cursor-pointer mb-1.5 hover:bg-zinc-800/40"
              data-index="${index}">
           <div class="flex items-center gap-2.5 min-w-0 flex-1 pointer-events-none">
-            <img src="${song.cover}" class="w-8 h-8 rounded-lg object-cover shrink-0" />
+            <img src="${song.cover}" class="w-8 h-8 rounded-lg object-cover shrink-0 border border-zinc-700/50" />
             <div class="min-w-0 flex-1">
-              <p class="text-[11px] font-bold text-amber-700 truncate leading-snug">${song.title}</p>
-              <p class="text-[9px] font-medium text-amber-500 truncate">${song.artist}</p>
+              <p class="text-[11px] font-bold text-zinc-200 truncate leading-snug">${song.title}</p>
+              <p class="text-[9px] font-medium text-zinc-400 truncate">${song.artist}</p>
             </div>
           </div>
-          <i data-lucide="volume-2" class="volume-icon w-3.5 h-3.5 text-amber-600 animate-pulse shrink-0 hidden"></i>
+          <i data-lucide="volume-2" class="volume-icon w-3.5 h-3.5 text-purple-400 animate-pulse shrink-0 hidden"></i>
         </div>
       `).join('');
 
@@ -280,7 +290,6 @@
       lucide.createIcons();
     }
 
-    // Đổi bài tức thì, phản hồi ngay không tạo trễ
     function setActiveTrack(index, shouldPlay = true) {
       if (index < 0 || index >= songs.length) return;
       
