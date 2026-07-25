@@ -353,7 +353,8 @@
       { title: "Em Gì Ơi", artist: "Jack x K-ICM", cover: "https://image-cdn.nct.vn/song/2025/03/23/b/3/e/5/1742666043754_300.jpg", src: "music_04.mp3" },
       { title: "Là 1 Thằng Con Trai", artist: "Jack - J97", cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAENvR32Jhlv_xjd79v-xr9Xd_3eiUVReqB229fmbBOg&s=10", src: "music_05.mp3" },
       { title: "Đom Đóm", artist: "Jack - J97", cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6jfAqQKd3ownVQi1buoO0HBhamMbV_bitKPdubFDVyw&s=10", src: "music_06.mp3" },
-      { title: "Về Bên Anh", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/03/26/5/b/4/c/1711427484011_300.jpg", src: "music_07.mp3" },
+      /* Đã thêm startTime: 7 để bỏ qua 7 giây đầu */
+      { title: "Về Bên Anh", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/03/26/5/b/4/c/1711427484011_300.jpg", src: "music_07.mp3", startTime: 7 },
       { title: "Ngôi Sao Cô Đơn", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2022/07/16/7/f/f/2/1657976952802_300.jpg", src: "music_08.mp3" },
       { title: "Xóa Tên Anh Đi", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2023/08/09/6/d/c/8/1691559892620_300.jpg", src: "music_09.mp3" },
       { title: "Thiên Lý Ơi", artist: "Jack - J97", cover: "https://image-cdn.nct.vn/song/2024/09/10/d/d/6/f/1725959474440_300.jpg", src: "music_11.mp3" }
@@ -488,9 +489,19 @@
 
       audioPlayer.src = songs[index].src;
 
+      /* Xử lý nhảy thời gian nếu bài hát có cài đặt startTime */
+      const startOffset = songs[index].startTime || 0;
+      
       if (shouldPlay) {
-        audioPlayer.play().catch(() => {});
+        audioPlayer.play().then(() => {
+          if (startOffset > 0) {
+            audioPlayer.currentTime = startOffset;
+          }
+        }).catch(() => {});
+      } else if (startOffset > 0) {
+        audioPlayer.currentTime = startOffset;
       }
+
       updatePlayStateUI();
     }
 
@@ -510,7 +521,8 @@
 
     document.getElementById('rewind-btn').addEventListener('click', () => {
       if (audioPlayer.duration) {
-        audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 5);
+        const minTime = songs[currentTrackIndex].startTime || 0;
+        audioPlayer.currentTime = Math.max(minTime, audioPlayer.currentTime - 5);
       }
     });
 
